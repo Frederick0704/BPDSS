@@ -14,6 +14,9 @@ export default function Home() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
 
+  const completedCount = todos.filter((t) => t.completed).length;
+  const totalCount = todos.length;
+
   // crear tarea con Enter
   function handleAddTask(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== "Enter") return;
@@ -78,7 +81,18 @@ export default function Home() {
         }}
       />
 
-      <ul style={{ listStyle: "none", padding: 0, marginTop: "20px" }}>
+      <p>
+        Total de Tareas: {todos.length}
+      </p>
+  
+
+      <p style={{ marginTop: "10px", fontSize: "14px", color: "#666" }}>
+        {totalCount === 0
+          ? "No hay tareas"
+          : `${completedCount} de ${totalCount} tareas completadas`}
+      </p>
+
+      <ul style={{ listStyle: "none", padding: 0, marginTop: "10px" }}>
         {todos.map((todo) => (
           <li
             key={todo.id}
