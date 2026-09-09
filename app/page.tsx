@@ -6,6 +6,7 @@ type Todo = {
   id: number;
   text: string;
   completed: boolean;
+  deleted: boolean;
 };
 
 export default function Home() {
@@ -16,12 +17,17 @@ export default function Home() {
 
   const completedCount = todos.filter((t) => t.completed).length;
   const totalCount = todos.length;
+  const activeTodos = todos.filter((t) => !t.deleted);
+  const trashedTodos = todos.filter((t) => t.deleted);
 
   // crear tarea con Enter
   function handleAddTask(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== "Enter") return;
     if (newTask.trim() === "") return;
-    setTodos([...todos, { id: Date.now(), text: newTask, completed: false }]);
+    setTodos([
+      ...todos,
+      { id: Date.now(), text: newTask, completed: false, deleted: false },
+    ]);
     setNewTask("");
   }
 
@@ -47,7 +53,22 @@ export default function Home() {
     setEditingId(null);
   }
 
+  // mueve la tarea a la papelera (soft delete)
   function deleteTask(id: number) {
+    setTodos(
+      todos.map((t) => (t.id === id ? { ...t, deleted: true } : t))
+    );
+  }
+
+  // saca la tarea de la papelera
+  function restoreTask(id: number) {
+    setTodos(
+      todos.map((t) => (t.id === id ? { ...t, deleted: false } : t))
+    );
+  }
+
+  // borra la tarea definitivamente
+  function deleteForever(id: number) {
     setTodos(todos.filter((t) => t.id !== id));
   }
 
@@ -82,9 +103,8 @@ export default function Home() {
       />
 
       <p>
-        Total de Tareas: {todos.length}
+        Total de Tareas: {activeTodos.length}
       </p>
-  
 
       <p style={{ marginTop: "10px", fontSize: "14px", color: "#666" }}>
         {totalCount === 0
@@ -93,7 +113,7 @@ export default function Home() {
       </p>
 
       <ul style={{ listStyle: "none", padding: 0, marginTop: "10px" }}>
-        {todos.map((todo) => (
+        {activeTodos.map((todo) => (
           <li
             key={todo.id}
             style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 0", borderBottom: "1px solid #ddd" }}
@@ -127,6 +147,26 @@ export default function Home() {
           </li>
         ))}
       </ul>
+
+      {trashedTodos.length > 0 && (
+        <div style={{ marginTop: "20px" }}>
+          <h2 style={{ fontSize: "16px", color: "#666" }}>Papelera</h2>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {trashedTodos.map((todo) => (
+              <li
+                key={todo.id}
+                style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 0", borderBottom: "1px solid #eee" }}
+              >
+                <span style={{ flex: 1, color: "#999", textDecoration: "line-through" }}>
+                  {todo.text}
+                </span>
+                <button onClick={() => restoreTask(todo.id)}>Restaurar</button>
+                <button onClick={() => deleteForever(todo.id)}>Borrar definitivo</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
