@@ -86,7 +86,7 @@ export default function Home() {
       <h1 style={{ marginBottom: "10px" }}>Mis tareas</h1>
       <hr style={{ border: "none", borderTop: "1px solid #ccc", marginBottom: "16px" }} />
 
-      <input
+     <input
         type="text"
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
@@ -149,19 +149,31 @@ export default function Home() {
       </ul>
 
       {trashedTodos.length > 0 && (
-        <div style={{ marginTop: "20px" }}>
-          <h2 style={{ fontSize: "16px", color: "#666" }}>Papelera</h2>
-          <ul style={{ listStyle: "none", padding: 0 }}>
+        <div className="trash-container">
+          <h2 className= "trash-title">Papelera</h2>
+          <ul className= "trash-list">
             {trashedTodos.map((todo) => (
               <li
                 key={todo.id}
-                style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 0", borderBottom: "1px solid #eee" }}
+                className="trash-item"
               >
-                <span style={{ flex: 1, color: "#999", textDecoration: "line-through" }}>
+                <span className="trash-task">
                   {todo.text}
                 </span>
-                <button onClick={() => restoreTask(todo.id)}>Restaurar</button>
-                <button onClick={() => deleteForever(todo.id)}>Borrar definitivo</button>
+                <button 
+                  className="restore-button"
+                  onClick={() => restoreTask(todo.id)}
+                >
+                 Restaurar
+                </button>
+
+                <button 
+                  className="delete-button"
+                  onClick={() => deleteForever(todo.id)}
+>
+                 Borrar definitivo
+               </button>
+                
               </li>
             ))}
           </ul>
@@ -169,4 +181,4 @@ export default function Home() {
       )}
     </div>
   );
-}
+} 

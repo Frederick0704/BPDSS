@@ -24,3 +24,66 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+
+/* PAPELERA */
+
+.trash-container {
+  margin-top: 25px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.trash-title {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: #555;
+}
+
+.trash-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trash-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.trash-task {
+  flex: 1;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.restore-button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  background: #e0e0e0;
+  cursor: pointer;
+}
+
+.restore-button:hover {
+  background: #ccc;
+}
+
+.delete-button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  background: #555;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background: #333;
+}
