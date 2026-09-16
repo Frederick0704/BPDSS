@@ -143,7 +143,7 @@ export default function Home() {
               </span>
             )}
 
-            <button onClick={() => deleteTask(todo.id)}>Eliminar</button>
+            <button className="todo-delete-btn" onClick={() => deleteTask(todo.id)}>Eliminar</button>
           </li>
         ))}
       </ul>
