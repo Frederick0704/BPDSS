@@ -118,7 +118,7 @@ export default function Home() {
             key={todo.id}
             style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 0", borderBottom: "1px solid #ddd" }}
           >
-            <input type="checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} />
+            <input type="checkbox" className="todo-checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} />
 
             {editingId === todo.id ? (
               <input
