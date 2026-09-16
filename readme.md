@@ -1,5 +1,8 @@
 # 📝 Gestor de Tareas
 
+
+![Vista de la aplicación](./public/screenshot.png)
+
 > pagina web para la creación y gestión de tareas desarrollada como proyecto académico.
 
 ---
