@@ -20,7 +20,6 @@ export default function Home() {
   const activeTodos = todos.filter((t) => !t.deleted);
   const trashedTodos = todos.filter((t) => t.deleted);
 
-  // crear tarea con Enter
   function handleAddTask(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== "Enter") return;
     if (newTask.trim() === "") return;
@@ -31,7 +30,6 @@ export default function Home() {
     setNewTask("");
   }
 
-  // tachar tarea
   function toggleComplete(id: number) {
     setTodos(
       todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
@@ -43,7 +41,6 @@ export default function Home() {
     setEditingText(todo.text);
   }
 
-  // guarda al salir del input
   function saveEdit(id: number) {
     setTodos(
       todos.map((t) =>
@@ -53,53 +50,34 @@ export default function Home() {
     setEditingId(null);
   }
 
-  // mueve la tarea a la papelera (soft delete)
   function deleteTask(id: number) {
     setTodos(
       todos.map((t) => (t.id === id ? { ...t, deleted: true } : t))
     );
   }
 
-  // saca la tarea de la papelera
   function restoreTask(id: number) {
     setTodos(
       todos.map((t) => (t.id === id ? { ...t, deleted: false } : t))
     );
   }
 
-  // borra la tarea definitivamente
   function deleteForever(id: number) {
     setTodos(todos.filter((t) => t.id !== id));
   }
 
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "50px auto",
-        fontFamily: "sans-serif",
-        border: "1px solid #333",
-        borderRadius: "8px",
-        padding: "20px",
-      }}
-    >
-      <h1 style={{ marginBottom: "10px" }}>Mis tareas</h1>
-      <hr style={{ border: "none", borderTop: "1px solid #ccc", marginBottom: "16px" }} />
+    <div className="todo-container">
+      <h1 className="todo-title">Mis tareas</h1>
+      <hr className="todo-divider" />
 
-     <input
+      <input
         type="text"
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
         onKeyDown={handleAddTask}
         placeholder="Escribe una tarea y presiona Enter"
-        style={{
-          width: "100%",
-          padding: "8px",
-          fontSize: "16px",
-          border: "1px solid #999",
-          borderRadius: "4px",
-          boxSizing: "border-box",
-        }}
+        className="todo-new-input"
       />
 
       <p>
@@ -112,13 +90,15 @@ export default function Home() {
           : `${completedCount} de ${totalCount} tareas completadas`}
       </p>
 
-      <ul style={{ listStyle: "none", padding: 0, marginTop: "10px" }}>
+      <ul className="todo-list">
         {activeTodos.map((todo) => (
-          <li
-            key={todo.id}
-            style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 0", borderBottom: "1px solid #ddd" }}
-          >
-            <input type="checkbox" className="todo-checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} />
+          <li key={todo.id} className="todo-item">
+            <input
+              type="checkbox"
+              className="todo-checkbox"
+              checked={todo.completed}
+              onChange={() => toggleComplete(todo.id)}
+            />
 
             {editingId === todo.id ? (
               <input
@@ -127,53 +107,46 @@ export default function Home() {
                 onChange={(e) => setEditingText(e.target.value)}
                 onBlur={() => saveEdit(todo.id)}
                 autoFocus
-                style={{ flex: 1, padding: "4px" }}
+                className="todo-edit-input"
               />
             ) : (
               <span
                 onClick={() => startEditing(todo)}
-                style={{
-                  flex: 1,
-                  cursor: "pointer",
-                  textDecoration: todo.completed ? "line-through" : "none",
-                  color: todo.completed ? "#999" : "#000",
-                }}
+                className={todo.completed ? "todo-text todo-text--done" : "todo-text"}
               >
                 {todo.text}
               </span>
             )}
 
-            <button className="todo-delete-btn" onClick={() => deleteTask(todo.id)}>Eliminar</button>
+            <button className="todo-delete-btn" onClick={() => deleteTask(todo.id)}>
+              Eliminar
+            </button>
           </li>
         ))}
       </ul>
 
       {trashedTodos.length > 0 && (
         <div className="trash-container">
-          <h2 className= "trash-title">Papelera</h2>
-          <ul className= "trash-list">
+          <h2 className="trash-title">Papelera</h2>
+          <ul className="trash-list">
             {trashedTodos.map((todo) => (
-              <li
-                key={todo.id}
-                className="trash-item"
-              >
+              <li key={todo.id} className="trash-item">
                 <span className="trash-task">
                   {todo.text}
                 </span>
-                <button 
+                <button
                   className="restore-button"
                   onClick={() => restoreTask(todo.id)}
                 >
-                 Restaurar
+                  Restaurar
                 </button>
 
-                <button 
+                <button
                   className="delete-button"
                   onClick={() => deleteForever(todo.id)}
->
-                 Borrar definitivo
-               </button>
-                
+                >
+                  Borrar definitivo
+                </button>
               </li>
             ))}
           </ul>
@@ -181,4 +154,4 @@ export default function Home() {
       )}
     </div>
   );
-} 
+}

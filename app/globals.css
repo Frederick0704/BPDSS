@@ -160,3 +160,42 @@ body {
   cursor: pointer;
   flex-shrink: 0;
 }
+
+.todo-container {
+  max-width: 400px;
+  margin: 50px auto;
+  font-family: sans-serif;
+  border: 2px solid #A47FD1;
+  border-radius: 16px;
+  padding: 24px;
+  background: linear-gradient(180deg, #FDFBFF 0%, #FFFFFF 100%);
+  box-shadow: 0 8px 20px rgba(164, 127, 209, 0.25);
+}
+
+.todo-title {
+  margin-bottom: 10px;
+  color: #453F5C;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.todo-divider {
+  border: none;
+  border-top: 1px solid #ECE6F7;
+  margin-bottom: 16px;
+}
+
+.todo-new-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #C9A7EB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.todo-new-input:focus {
+  outline: none;
+  border-color: #A47FD1;
+}
