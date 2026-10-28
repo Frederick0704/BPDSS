@@ -11,7 +11,7 @@
 - Omar Gutierrez
 - Angel Morales
 - Daniela Beltran
-- Frederick Jimenez Egurrola
+- Frederick Emilio Jimenez Egurrola
 
 ## 📌 Descripción
 
